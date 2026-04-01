@@ -1276,17 +1276,17 @@
       const vw = window.innerWidth;
       const vh = window.innerHeight;
       const maxH  = Math.round((vh - 160) * 0.937125);
-      const pageW = Math.round(maxH / 1.29);   // portrait ratio ~700/900
+      const pageW = Math.round(maxH / 1.414);   // portrait ratio ~700/900
       const pageH = maxH;
 
       pageFlip = new St.PageFlip(document.getElementById("spf-book"), {
         width:  pageW,
         height: pageH,
         size: "stretch",
-        minWidth:  221,
-        maxWidth:  772,
-        minHeight: 331,
-        maxHeight: 992,
+        minWidth:  210,
+        maxWidth:  778,
+        minHeight: 297,
+        maxHeight: 1100,
         maxShadowOpacity: 0.6,
         showCover: true,
         mobileScrollSupport: true,
@@ -1832,102 +1832,6 @@
 </script>
 
 
-<!-- ── Project Lightbox ──────────────────────────────────── -->
-<div id="proj-lightbox" class="proj-lightbox" role="dialog" aria-modal="true">
-  <div class="plb-backdrop" onclick="closeLightbox()"></div>
-  <button class="plb-close" onclick="closeLightbox()" aria-label="Close">
-    <svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>
-  </button>
-  <button class="plb-nav plb-prev" onclick="lightboxPrev()" aria-label="Previous project">
-    <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
-  </button>
-  <button class="plb-nav plb-next" onclick="lightboxNext()" aria-label="Next project">
-    <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
-  </button>
-  <div class="plb-img-wrap">
-    <img id="plb-img" src="" alt="" />
-  </div>
-  <div class="plb-bottom">
-    <div class="plb-info">
-      <div id="plb-title" class="plb-title"></div>
-      <div id="plb-cat" class="plb-cat"></div>
-    </div>
-    <div class="plb-counter">
-      <span id="plb-current">1</span><span class="plb-sep"> / </span><span id="plb-total">7</span>
-    </div>
-    <div class="plb-thumbs" id="plb-thumbs"></div>
-  </div>
-</div>
-
-<script>
-  // ── Project Lightbox ──────────────────────────────────────
-  const PROJECTS = [
-    { img: 'projects/img01.jpg', title: 'Coastal Cliffside Villa',       cat: 'Architectural Visualization' },
-    { img: 'projects/img02.jpg', title: 'Urban Vertical Forest Complex', cat: 'Architectural Visualization' },
-    { img: 'projects/img03.jpg', title: 'Cultural Centre at Dusk',       cat: 'Exterior Design'             },
-    { img: 'projects/img04.jpg', title: 'Parametric Pavilion',           cat: 'Architecture Design'         },
-    { img: 'projects/img05.jpg', title: 'Sunken Garden Residence',       cat: 'Exterior & Interior Design'  },
-    { img: 'projects/img06.jpg', title: 'Mixed-Use Urban Tower',         cat: 'Commercial Architecture'     },
-    { img: 'projects/img07.jpg', title: 'Desert Cultural Complex',       cat: 'Landscapes & Urban Design'   },
-  ];
-  let lbIndex = 0;
-
-  function openLightbox(idx) {
-    lbIndex = idx;
-    buildLbThumbs();
-    updateLightbox(false);
-    document.getElementById('proj-lightbox').classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-  function closeLightbox() {
-    document.getElementById('proj-lightbox').classList.remove('open');
-    document.body.style.overflow = '';
-  }
-  function lightboxPrev() {
-    lbIndex = (lbIndex - 1 + PROJECTS.length) % PROJECTS.length;
-    updateLightbox(true);
-  }
-  function lightboxNext() {
-    lbIndex = (lbIndex + 1) % PROJECTS.length;
-    updateLightbox(true);
-  }
-  function updateLightbox(animate) {
-    const p = PROJECTS[lbIndex];
-    const img = document.getElementById('plb-img');
-    if (animate) {
-      img.classList.add('switching');
-      setTimeout(() => { img.src = p.img; img.alt = p.title; img.classList.remove('switching'); }, 200);
-    } else {
-      img.src = p.img; img.alt = p.title;
-    }
-    document.getElementById('plb-title').textContent = p.title;
-    document.getElementById('plb-cat').textContent   = p.cat;
-    document.getElementById('plb-current').textContent = lbIndex + 1;
-    document.getElementById('plb-total').textContent   = PROJECTS.length;
-    document.querySelectorAll('.plb-thumb').forEach((t, i) => t.classList.toggle('active', i === lbIndex));
-  }
-  function buildLbThumbs() {
-    const container = document.getElementById('plb-thumbs');
-    if (!container.children.length) {
-      PROJECTS.forEach((p, i) => {
-        const t = document.createElement('div');
-        t.className = 'plb-thumb';
-        t.style.backgroundImage = `url('${p.img}')`;
-        t.addEventListener('click', () => { lbIndex = i; updateLightbox(true); });
-        container.appendChild(t);
-      });
-    }
-    document.querySelectorAll('.plb-thumb').forEach((t, i) => t.classList.toggle('active', i === lbIndex));
-  }
-  document.addEventListener('keydown', e => {
-    const lb = document.getElementById('proj-lightbox');
-    if (!lb.classList.contains('open')) return;
-    if (e.key === 'Escape')     closeLightbox();
-    if (e.key === 'ArrowLeft')  lightboxPrev();
-    if (e.key === 'ArrowRight') lightboxNext();
-  });
-</script>
-
 <!-- Whatsapp Send Message  -->
 
 <script>
@@ -1938,4 +1842,28 @@ function handleSubmit(event) {
 
     let firstName = form.firstName.value;
     let lastName = form.lastName.value;
- 
+    let email = form.email.value;
+    let phone = form.phone.value;
+    let service = form.service.value;
+    let message = form.message.value;
+
+    let text = `Name: ${firstName} ${lastName}
+Email: ${email}
+Phone: ${phone}
+Service: ${service}
+Message: ${message}`;
+
+    let whatsappNumber = "94741270675"; // ✅ your number (no +)
+
+    let url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`;
+
+    window.open(url, "_blank");
+}
+</script>
+
+
+
+</body>
+</html>
+
+
