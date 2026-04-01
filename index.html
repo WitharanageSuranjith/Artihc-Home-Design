@@ -1069,6 +1069,254 @@
 </section>
 
 
+<!-- ── FlipBook ───────────────────────────────────────────── -->
+<section id="flipbook" class="section" style="background:var(--dark-2);">
+  <div class="container">
+    <div class="section-header center reveal">
+      <div class="label">Portfolio</div>
+      <h2 class="heading-xl">Our <span class="gold">Lookbook</span></h2>
+      <div class="divider" style="margin:24px auto;"></div>
+      <p style="font-size:15px;color:var(--muted);max-width:520px;margin:0 auto;line-height:1.8;">
+        Flip through our curated collection of architectural visualizations and design concepts.
+      </p>
+    </div>
+
+    <div class="reveal" style="display:flex;flex-direction:column;align-items:center;gap:32px;margin-top:48px;">
+      <button class="btn btn-gold" onclick="openFlipbook()">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+          <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+        </svg>
+        Open Lookbook
+      </button>
+
+      <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
+        <div style="width:80px;height:56px;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);opacity:.7;"><img src="https://picsum.photos/160/112?random=1" style="width:100%;height:100%;object-fit:cover;"/></div>
+        <div style="width:80px;height:56px;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);opacity:.7;"><img src="https://picsum.photos/160/112?random=2" style="width:100%;height:100%;object-fit:cover;"/></div>
+        <div style="width:80px;height:56px;border-radius:var(--radius);overflow:hidden;border:1px solid var(--border);opacity:.7;"><img src="https://picsum.photos/160/112?random=3" style="width:100%;height:100%;object-fit:cover;"/></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Flipbook Overlay ────────────────────────────────────── -->
+<div id="flipbook-overlay" style="
+  position:fixed; inset:0; background:rgb(37 37 37);
+  display:none; flex-direction:column; z-index:2000;
+  backdrop-filter:blur(12px);
+">
+  <!-- Top bar -->
+  <div style="
+    height:60px; display:flex; justify-content:space-between; align-items:center;
+    padding:0 32px; border-bottom:1px solid var(--border);
+    background:rgba(8,8,8,.9); flex-shrink:0;
+  ">
+
+  
+    <div style="display:flex;align-items:center;gap:12px;">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="var(--gold)" stroke-width="2">
+        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+        <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+      </svg>
+      <span style="font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);">ARTIHC Lookbook</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:20px;">
+      <span id="fb-page-info" style="font-size:11px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;"></span>
+      <button onclick="closeFlipbook()" style="
+        background:none; border:1px solid var(--border); color:var(--muted);
+        width:36px; height:36px; border-radius:var(--radius);
+        cursor:pointer; font-size:18px; display:flex; align-items:center; justify-content:center;
+        transition:var(--transition);
+      " onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)';"
+         onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)';">✕</button>
+    </div>
+  </div>
+
+  <!-- Book area -->
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:28px;padding:20px 80px;position:relative;">
+
+    <!-- The book container -->
+    <div id="spf-book" style="
+      box-shadow:
+        0 50px 100px rgba(0,0,0,.95),
+        0 25px 50px  rgba(0, 0, 0, 0.945),
+        0  0   0 1px rgba(0, 0, 0, 0.945);
+    ">
+      <!-- Cover -->
+      <div class="spf-page" data-density="smooth">
+        <div class="spf-page-inner spf-page-inner">
+          <div class="spf-cover-img" style="background-image:url('projects/project-book/project_01/1.jpg');"></div>
+        </div>
+      </div>
+      <!-- Pages -->
+      <div class="spf-page"><div class="spf-page-inner"><img src="projects/project-book/project_01/3.jpg" class="spf-img"/><div class="spf-pg-num"></div></div></div>
+      <div class="spf-page"><div class="spf-page-inner"><img src="projects/project-book/project_01/4.jpg" class="spf-img"/><div class="spf-pg-num"></div></div></div>
+      <div class="spf-page"><div class="spf-page-inner"><img src="projects/project-book/project_01/5.jpg" class="spf-img"/><div class="spf-pg-num"></div></div></div>
+      <div class="spf-page"><div class="spf-page-inner"><img src="projects/project-book/project_01/6.jpg" class="spf-img"/><div class="spf-pg-num"></div></div></div>
+      <div class="spf-page"><div class="spf-page-inner"><img src="projects/project-book/project_01/7.jpg" class="spf-img"/><div class="spf-pg-num"></div></div></div>
+      <div class="spf-page"><div class="spf-page-inner"><img src="projects/project-book/project_01/8.jpg" class="spf-img"/><div class="spf-pg-num"></div></div></div>
+      <div class="spf-page"><div class="spf-page-inner"><img src="projects/project-book/project_01/8.jpg" class="spf-img"/><div class="spf-pg-num"></div></div></div>
+      <div class="spf-page"><div class="spf-page-inner"><img src="projects/project-book/project_01/9.jpg" class="spf-img"/><div class="spf-pg-num"></div></div></div>
+      <div class="spf-page"><div class="spf-page-inner"><img src="projects/project-book/project_01/10.jpg" class="spf-img"/><div class="spf-pg-num"></div></div></div>
+      <div class="spf-page"><div class="spf-page-inner"><img src="projects/project-book/project_01/11.jpg" class="spf-img"/><div class="spf-pg-num"></div></div></div>
+      <div class="spf-page"><div class="spf-page-inner"><img src="projects/project-book/project_01/12.jpg" class="spf-img"/><div class="spf-pg-num"></div></div></div>
+      <div class="spf-page"><div class="spf-page-inner"><img src="projects/project-book/project_01/13.jpg" class="spf-img"/><div class="spf-pg-num"></div></div></div>
+      <div class="spf-page"><div class="spf-page-inner"><img src="projects/project-book/project_01/14.jpg" class="spf-img"/><div class="spf-pg-num"></div></div></div>
+      <div class="spf-page"><div class="spf-page-inner"><img src="projects/project-book/project_01/15.jpg" class="spf-img"/><div class="spf-pg-num"></div></div></div>
+      <div class="spf-page"><div class="spf-page-inner"><img src="projects/project-book/project_01/16.jpg" class="spf-img"/><div class="spf-pg-num"></div></div></div>
+      <div class="spf-page"><div class="spf-page-inner"><img src="projects/project-book/project_01/17.jpg" class="spf-img"/><div class="spf-pg-num"></div></div></div>
+      <div class="spf-page"><div class="spf-page-inner"><img src="projects/project-book/project_01/18.jpg" class="spf-img"/><div class="spf-pg-num"></div></div></div>
+      <div class="spf-page"><div class="spf-page-inner"><img src="projects/project-book/project_01/19.jpg" class="spf-img"/><div class="spf-pg-num"></div></div></div>
+      <!-- Back cover -->
+     
+    </div>
+
+    <!-- Nav buttons -->
+    <div style="display:flex;align-items:center;gap:20px; position: relative;">
+      <button onclick="fbPrev()" class="fb-nav-btn">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+        Prev
+      </button>
+      <span id="fb-page-info-2" style="font-size:12px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;min-width:100px;text-align:center;"></span>
+      <button onclick="fbNext()" class="fb-nav-btn">
+        Next
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Bottom hint -->
+  <div style="height:36px;display:flex;justify-content:center;align-items:center;border-top:1px solid var(--border);flex-shrink:0;">
+    <span style="font-size:10px;letter-spacing:2px;color:rgba(136,136,136,.5);text-transform:uppercase;">
+      Click page edges or use arrow keys to flip
+    </span>
+  </div>
+</div>
+
+<style>
+  /* Page styles */
+  .spf-page { background:#1a1a1a; }
+  .spf-page-inner {
+    width:100%; height:100%; position:relative;
+    overflow:hidden; background:#111;
+  }
+  .spf-img {
+    width:100%; height:100%;
+    display:block;
+  }
+  .spf-pg-num {
+    position:absolute; bottom:16px; right:20px;
+    font-size:11px; letter-spacing:3px;
+    color:rgba(201,168,76,.7); font-family:'Poppins',sans-serif;
+  }
+  /* Cover styles */
+  .spf-cover-inner { background:#0a0a0a; }
+  .spf-cover-img {
+    position:absolute; inset:0;
+    background-size:cover; background-position:center;
+  }
+  .spf-cover-overlay {
+    position:absolute; inset:0;
+    background:linear-gradient(to bottom, rgba(0,0,0,.3) 0%, rgba(0,0,0,.75) 100%);
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center; gap:10px;
+  }
+  .spf-cover-logo {
+    font-family:'Poppins',sans-serif; font-size:clamp(22px,4vw,40px);
+    font-weight:500; letter-spacing:8px; color:#fff; text-transform:uppercase;
+  }
+  .spf-cover-sub {
+    font-size:clamp(10px,1.5vw,13px); letter-spacing:4px;
+    color:var(--gold); text-transform:uppercase;
+  }
+  .spf-cover-line {
+    width:40px; height:1px; background:var(--gold); margin:8px 0;
+  }
+  .spf-cover-tag {
+    font-size:clamp(9px,1.2vw,11px); letter-spacing:3px;
+    color:rgba(255,255,255,.4); text-transform:uppercase;
+  }
+  /* Nav buttons */
+  .fb-nav-btn {
+    display:inline-flex; align-items:center; gap:8px;
+    padding:10px 24px; font-size:11px; font-weight:500;
+    letter-spacing:2px; text-transform:uppercase;
+    background:transparent; color:var(--gold);
+    border:1px solid rgba(201,168,76,.35);
+    border-radius:var(--radius); cursor:pointer;
+    transition:var(--transition); font-family:'Poppins',sans-serif;
+  }
+  .fb-nav-btn:hover {
+    background:rgba(201,168,76,.1);
+    border-color:var(--gold);
+  }
+</style>
+
+<script src="https://unpkg.com/page-flip/dist/js/page-flip.browser.js"></script>
+<script>
+  let pageFlip = null;
+
+  function updateFbInfo() {
+    if (!pageFlip) return;
+    const cur  = pageFlip.getCurrentPageIndex();
+    const total = pageFlip.getPageCount();
+    const txt = "Page " + (cur + 1) + " / " + total;
+    document.getElementById("fb-page-info").textContent  = txt;
+    document.getElementById("fb-page-info-2").textContent = txt;
+  }
+
+  function openFlipbook() {
+    const overlay = document.getElementById("flipbook-overlay");
+    overlay.style.display = "flex";
+    document.body.style.overflow = "hidden";
+
+    if (!pageFlip) {
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      const maxH  = Math.round((vh - 160) * 0.937125);
+      const pageW = Math.round(maxH / 1.29);   // portrait ratio ~700/900
+      const pageH = maxH;
+
+      pageFlip = new St.PageFlip(document.getElementById("spf-book"), {
+        width:  pageW,
+        height: pageH,
+        size: "stretch",
+        minWidth:  221,
+        maxWidth:  772,
+        minHeight: 331,
+        maxHeight: 992,
+        maxShadowOpacity: 0.6,
+        showCover: true,
+        mobileScrollSupport: true,
+        flippingTime: 900,
+        usePortrait: true,
+        drawShadow: true,
+      });
+
+      pageFlip.loadFromHTML(document.querySelectorAll(".spf-page"));
+      pageFlip.on("flip", updateFbInfo);
+    }
+    setTimeout(updateFbInfo, 100);
+  }
+
+  function closeFlipbook() {
+    document.getElementById("flipbook-overlay").style.display = "none";
+    document.body.style.overflow = "";
+  }
+
+  function fbNext() { pageFlip && pageFlip.flipNext(); }
+  function fbPrev() { pageFlip && pageFlip.flipPrev(); }
+
+  document.addEventListener("keydown", (e) => {
+    if (document.getElementById("flipbook-overlay").style.display !== "flex") return;
+    if (e.key === "ArrowRight") fbNext();
+    if (e.key === "ArrowLeft")  fbPrev();
+    if (e.key === "Escape")     closeFlipbook();
+  });
+</script>
+
 <!-- ── Services ───────────────────────────────────────────── -->
 <section id="services" class="section">
   <div class="container">
@@ -1374,7 +1622,7 @@
           </div>
           <div>
             <div class="contact-item-label">Email</div>
-            <div class="contact-item-val"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7c15121a133c1d0e0815141f52121908">info.artihc@gmail.com</a><br/><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6f06010900410e1d1b06070c2f08020e0603410c0002">info@artihc.online</a></div>
+            <div class="contact-item-val"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7c15121a133c1d0e0815141f52121908"><span class="__cf_email__" data-cfemail="e0898e868fce819294898883a0878d81898cce838f8d">[email&#160;protected]</span></a><br/><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="6f06010900410e1d1b06070c2f08020e0603410c0002"><span class="__cf_email__" data-cfemail="3b52555d547b5a494f5253581554555752555e">[email&#160;protected]</span></a></div>
           </div>
         </div>
         <div class="contact-item">
@@ -1496,8 +1744,8 @@
         <ul class="footer-links">
           <li><a href="tel:+16397724185585">+94 77 9079 349</a></li>
           <li><a href="tel:+94779079349">+1 873 529 9492</a></li>
-          <li><a href="/cdn-cgi/l/email-protection#7910171f1639180b0d10111a57171c0d"><span class="__cf_email__" data-cfemail="771e191118371605031e1f1459191203">info.artihc@gmail.com</span></a></li>
-          <li><a href="/cdn-cgi/l/email-protection#4f26212920612e3d3b26272c0f28222e2623612c2022"><span class="__cf_email__" data-cfemail="41282f272e6f20333528292201262c20282d6f222e2c">info@artihc.online</span></a></li>
+          <li><a href="/cdn-cgi/l/email-protection#7910171f1639180b0d10111a57171c0d"><span class="__cf_email__" data-cfemail="771e191118371605031e1f1459191203"><span class="__cf_email__" data-cfemail="1d74737b72337c6f6974757e5d7a707c7471337e7270">[email&#160;protected]</span></span></a></li>
+          <li><a href="/cdn-cgi/l/email-protection#4f26212920612e3d3b26272c0f28222e2623612c2022"><span class="__cf_email__" data-cfemail="41282f272e6f20333528292201262c20282d6f222e2c"><span class="__cf_email__" data-cfemail="80e9eee6efc0e1f2f4e9e8e3aeefeeece9eee5">[email&#160;protected]</span></span></a></li>
         </ul>
       </div>
     </div>
@@ -1510,7 +1758,7 @@
 
 
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // ── Hero slideshow ─────────────────────────────────────────
   const slides = document.querySelectorAll('.hero-slide');
   let current = 0;
@@ -1690,29 +1938,4 @@ function handleSubmit(event) {
 
     let firstName = form.firstName.value;
     let lastName = form.lastName.value;
-    let email = form.email.value;
-    let phone = form.phone.value;
-    let service = form.service.value;
-    let message = form.message.value;
-
-    let text = `Name: ${firstName} ${lastName}
-Email: ${email}
-Phone: ${phone}
-Service: ${service}
-Message: ${message}`;
-
-    let whatsappNumber = "94741270675"; // ✅ your number (no +)
-
-    let url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`;
-
-    window.open(url, "_blank");
-}
-</script>
-
-
-
-</body>
-</html>
-
-
-
+ 
