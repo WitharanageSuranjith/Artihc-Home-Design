@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title> ARTIHC HOME DESIGN</title>
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --dark:       #080808;
+      --dark-2:     #0f0f0f;
+      --dark-3:     #181818;
+      --dark-4:     #212121;
+      --gold:       #c9a84c;
+      --gold-light: #e4c47e;
+      --gold-dim:   rgba(201,168,76,.15);
+      --text:       #f5f5f5;
+      --muted:      #888;
+      --border:     rgba(255,255,255,.07);
+      --nav-h:      100px;
+      --radius:     4px;
+      --transition: .4s cubic-bezier(.25,.46,.45,.94);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--dark);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+    img { display: block; max-width: 100%; }
+    a   { text-decoration: none; color: inherit; }
+    ul  { list-style: none; }
+
+    /* ── Utility ── */
+
+    .fullpage {max-width: 100%; margin: 0 auto; padding: 0 20px; }
+    
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
+    .label {
+      font-size: 11px; font-weight: 500; letter-spacing: 4px;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
+    }
+    .gold { color: var(--gold); }
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 32px; font-size: 13px; font-weight: 500;
+      letter-spacing: 2px; text-transform: uppercase;
+      border-radius: var(--radius); cursor: pointer;
+      transition: var(--transition); border: none;
+    }
+    .btn-gold { background: var(--gold); color: #000; }
+    .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(201,168,76,.35); }
+    .btn-outline { background: transparent; color: var(--text); border: 1px solid rgba(255,255,255,.3); }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+    .divider { width: 50px; height: 2px; background: var(--gold); margin: 24px 0; }
+
+    /* ── Navbar ── */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      height: var(--nav-h);
+      background: #000000d6;
+      transition: background .4s ease, box-shadow .4s ease;
+    }
+    #navbar.scrolled {
+      background: rgba(8,8,8,.92);
+      backdrop-filter: blur(20px);
+      box-shadow: 1px 1px 5px rgb(0 0 0 / 50%);
+    }
+    .nav-inner { display: flex; align-items: center; justify-content: space-between; height: var(--nav-h); }
+    .nav-logo img { margin-bottom: 10px; height: 50px; width: auto; }
+    .nav-logo .logo-fallback { font-size: 20px; font-weight: 500; color: var(--gold); }
+    .nav-links { display: flex; align-items: center; gap: 36px; }
+    .nav-links a {
+      font-size: 12px; font-weight: 500; letter-spacing: 2px;
+      text-transform: uppercase; color: rgba(255,255,255,.7);
+      transition: color .3s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+    .nav-cta { padding: 10px 24px; border: 1px solid var(--gold); color: var(--gold) !important; border-radius: var(--radius); }
+    .nav-cta:hover { background: var(--gold); color: #000 !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+    .hamburger span { display: block; width: 24px; height: 1.5px; background: var(--text); transition: var(--transition); }
+    .mobile-nav {
+      display: none; position: fixed; inset: 0; z-index: 999;
+      background: rgba(8,8,8,.97); backdrop-filter: blur(20px);
+      flex-direction: column; align-items: center; justify-content: center; gap: 40px;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a { font-size: 32px; color: var(--text); transition: color .3s; }
+    .mobile-nav a:hover { color: var(--gold); }
+    .mobile-close { position: absolute; top: 28px; right: 40px; font-size: 28px; cursor: pointer; color: var(--muted); }
+
+    /* ── Page Header ── */
+    .page-header {
+      padding-top: calc(var(--nav-h) + 5px);
+      padding-bottom: 80px;
+      background: var(--dark-2);
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    .page-header::before {
+      content: '';
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+      width: 700px; height: 700px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,168,76,.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .page-header-label { margin-bottom: 16px; }
+    .page-header h1 {
+      font-size: clamp(40px,6vw,72px); font-weight: 500;
+      line-height: 1.1; margin-bottom: 24px;
+    }
+    .page-header p {
+      font-size: 15px; color: var(--muted);
+      max-width: 520px; margin: 0 auto; line-height: 1.8;
+    }
+    .page-header .divider { margin: 24px auto; }
+    .back-link {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--muted); transition: color .3s;
+      margin-bottom: 40px;
+    }
+    .back-link:hover { color: var(--gold); }
+    .back-link svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ── Projects Grid ── */
+    .all-projects { background: rgb(15, 15, 15); padding-top: 120px; }
+    .projects-masonry {
+      columns: 4; column-gap: 8px;
+    }
+    .proj-item {
+      break-inside: avoid;
+      margin-bottom: 8px;
+      position: relative; overflow: hidden;
+      border-radius: var(--radius);
+      cursor: pointer;
+      background: var(--dark-3);
+      transition: opacity .4s ease, transform .4s ease;
+    }
+    .proj-item.hidden {
+      display: none;
+    }
+    .proj-item img {
+      width: 100%; height: auto; display: block;
+      transition: transform .7s ease;
+    }
+    .proj-item:hover img { transform: scale(1.06); }
+    .proj-item-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.88) 0%, transparent 55%);
+      opacity: 0; transition: opacity .4s ease;
+      display: flex; flex-direction: column;
+      justify-content: flex-end; padding: 28px;
+    }
+    .proj-item:hover .proj-item-overlay { opacity: 1; }
+    .proj-item-title {
+      font-size: 17px; font-weight: 500;
+      color: var(--text); margin-bottom: 6px;
+    }
+    .proj-item-cat {
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+      color: var(--gold);
+    }
+    .proj-item-btn {
+      position: absolute; top: 16px; right: 16px;
+      width: 38px; height: 38px; border-radius: 50%;
+      background: var(--gold); display: flex; align-items: center; justify-content: center;
+      opacity: 0; transform: scale(.7); transition: var(--transition);
+    }
+    .proj-item:hover .proj-item-btn { opacity: 1; transform: scale(1); }
+    .proj-item-btn svg { width: 15px; height: 15px; fill: none; stroke: #000; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ── CTA Strip ── */
+    .projects-cta {
+      background: var(--dark-3); padding: 80px 0; text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .projects-cta::before {
+      content: '';
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+      width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,168,76,.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .projects-cta h2 { font-size: clamp(28px,4vw,48px); font-weight: 500; margin-bottom: 16px; }
+    .projects-cta p  { font-size: 15px; color: var(--muted); max-width: 480px; margin: 0 auto 36px; line-height: 1.8; }
+
+    /* ── Footer ── */
+    footer { background: var(--dark-2); border-top: 1px solid var(--border); padding: 60px 0 32px; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
+    .footer-logo img { height: 44px; margin-bottom: 20px; filter: brightness(100); }
+    .footer-logo-fallback { font-size: 18px; color: var(--gold); margin-bottom: 20px; }
+    .footer-tagline { font-size: 13px; color: var(--muted); line-height: 1.8; max-width: 280px; }
+    .footer-socials { display: flex; gap: 12px; margin-top: 28px; }
+    .social-btn {
+      width: 36px; height: 36px; border-radius: var(--radius);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); transition: var(--transition);
+    }
+    .social-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .social-btn svg { width: 16px; height: 16px; fill: currentColor; }
+    .footer-col-title { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--text); margin-bottom: 24px; font-weight: 500; }
+    .footer-links { display: flex; flex-direction: column; gap: 14px; }
+    .footer-links a { font-size: 13px; color: var(--muted); transition: color .3s; }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-bottom { border-top: 1px solid var(--border); padding-top: 28px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .footer-copy { font-size: 12px; color: var(--muted); }
+    .footer-copy a { color: var(--gold); }
+
+    /* ── Project Lightbox ── */
+    .proj-lightbox {
+      position: fixed; inset: 0; z-index: 9000;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity .35s ease;
+    }
+    .proj-lightbox.open { opacity: 1; pointer-events: all; }
+    .plb-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,.96); backdrop-filter: blur(8px); }
+    .plb-close {
+      position: absolute; top: 24px; right: 24px; z-index: 10;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: rgba(255,255,255,.8); transition: var(--transition);
+    }
+    .plb-close:hover { background: rgba(255,255,255,.18); color: #fff; }
+    .plb-close svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+    .plb-nav {
+      position: absolute; top: 50%; transform: translateY(-50%); z-index: 10;
+      width: 56px; height: 56px; border-radius: 50%;
+      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.15);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: rgba(255,255,255,.8); transition: var(--transition);
+    }
+    .plb-nav:hover { background: var(--gold); border-color: var(--gold); color: #000; }
+    .plb-nav svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .plb-prev { left: 24px; }
+    .plb-next { right: 24px; }
+    .plb-img-wrap {
+      position: relative; z-index: 5;
+      width: min(1100px, 88vw);
+      display: flex; align-items: center; justify-content: center;
+      padding-top: 60px;
+    }
+    #plb-img {
+      max-width: 100%; max-height: 70vh;
+      object-fit: contain; border-radius: var(--radius);
+      box-shadow: 0 32px 100px rgba(0,0,0,.8);
+      transition: opacity .22s ease; display: block;
+    }
+    #plb-img.switching { opacity: 0; }
+    .plb-bottom {
+      position: absolute; bottom: 0; left: 0; right: 0; z-index: 10;
+      padding: 32px 100px 28px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 24px; flex-wrap: wrap;
+      background: linear-gradient(to top, rgba(0,0,0,.9) 0%, transparent 100%);
+    }
+    .plb-title { font-size: 19px; font-weight: 500; color: var(--text); margin-bottom: 5px; }
+    .plb-cat   { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); }
+    .plb-counter { font-size: 13px; color: rgba(255,255,255,.45); display: flex; align-items: center; gap: 5px; flex-shrink: 0; }
+    .plb-sep { color: rgba(255,255,255,.2); }
+    .plb-thumbs { display: flex; gap: 8px; align-items: center; }
+    .plb-thumb {
+      width: 54px; height: 38px; border-radius: 3px;
+      background-size: cover; background-position: center;
+      border: 2px solid transparent; cursor: pointer; opacity: .4;
+      transition: opacity .3s, border-color .3s, transform .25s;
+    }
+    .plb-thumb:hover { opacity: .8; transform: translateY(-2px); }
+    .plb-thumb.active { border-color: var(--gold); opacity: 1; }
+
+    /* ── Scroll reveal ── */
+    .reveal { opacity: 0; transform: translateY(36px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── Responsive ── */
+    @media (max-width: 1024px) { .container { padding: 0 24px; } .footer-top { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 768px) {
+      .nav-links { display: none; } .hamburger { display: flex; }
+      .projects-masonry { columns: 2; }
+      .plb-prev { left: 10px; } .plb-next { right: 10px; }
+      .plb-bottom { padding: 20px 24px; } .plb-thumbs { display: none; }
+      .plb-nav { width: 44px; height: 44px; }
+      .footer-top { grid-template-columns: 1fr; gap: 40px; }
+    }
+    @media (max-width: 480px) { .projects-masonry { columns: 1; } }
+  </style>
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav id="navbar">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <img src="logo.png" alt="ARTIHC HOME DESIGN"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+        <span class="logo-fallback" style="display:none;">ARTIHC HOME DESIGN</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html#projects">Projects</a></li>
+        <li><a href="index.html#services">Services</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="index.html#pricing">Packages</a></li>
+        <li><a href="index.html#contact" class="nav-cta">Contact</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Nav -->
+<div class="mobile-nav" id="mobile-nav">
+  <span class="mobile-close" onclick="toggleMenu()">✕</span>
+  <a href="index.html#projects" onclick="toggleMenu()">Projects</a>
+  <a href="index.html#services" onclick="toggleMenu()">Services</a>
+  <a href="index.html#about"    onclick="toggleMenu()">About</a>
+  <a href="index.html#pricing"  onclick="toggleMenu()">Packages</a>
+  <a href="index.html#contact"  onclick="toggleMenu()">Contact</a>
+</div>
+
+<!-- ── Page Header ── -->
+<!-- <header class="page-header">
+  
+</header> -->
+
+<!-- ── All Projects ── -->
+<section class="all-projects">
+  <div class="fullpage">
+    <div class="projects-masonry" id="projects-masonry">
+
+      <div class="proj-item reveal" onclick="openLightbox(0)">
+        <img src="projects/img12.jpg" alt="Coastal Cliffside Villa" loading="lazy" />
+        <div class="proj-item-overlay">
+          <div class="proj-item-title">Coastal Cliffside Villa</div>
+          <div class="proj-item-cat">Architectural Visualization</div>
+        </div>
+        <div class="proj-item-btn">
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+
+      <div class="proj-item reveal" onclick="openLightbox(1)" style="transition-delay:.05s">
+        <img src="projects/img02.jpg" alt="Urban Vertical Forest Complex" loading="lazy" />
+        <div class="proj-item-overlay">
+          <div class="proj-item-title">Urban Vertical Forest Complex</div>
+          <div class="proj-item-cat">Architectural Visualization</div>
+        </div>
+        <div class="proj-item-btn">
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+
+      <div class="proj-item reveal" onclick="openLightbox(2)" style="transition-delay:.1s">
+        <img src="projects/img03.jpg" alt="Cultural Centre at Dusk" loading="lazy" />
+        <div class="proj-item-overlay">
+          <div class="proj-item-title">Cultural Centre at Dusk</div>
+          <div class="proj-item-cat">Exterior Design</div>
+        </div>
+        <div class="proj-item-btn">
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+
+      <div class="proj-item reveal" onclick="openLightbox(3)" style="transition-delay:.15s">
+        <img src="projects/img04.jpg" alt="Parametric Pavilion" loading="lazy" />
+        <div class="proj-item-overlay">
+          <div class="proj-item-title">Parametric Pavilion</div>
+          <div class="proj-item-cat">Architecture Design</div>
+        </div>
+        <div class="proj-item-btn">
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+
+      <div class="proj-item reveal" onclick="openLightbox(4)" style="transition-delay:.2s">
+        <img src="projects/img05.jpg" alt="Sunken Garden Residence" loading="lazy" />
+        <div class="proj-item-overlay">
+          <div class="proj-item-title">Sunken Garden Residence</div>
+          <div class="proj-item-cat">Exterior &amp; Interior Design</div>
+        </div>
+        <div class="proj-item-btn">
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+
+      <div class="proj-item reveal" onclick="openLightbox(5)" style="transition-delay:.25s">
+        <img src="projects/img10.jpg" alt="Mixed-Use Urban Tower" loading="lazy" />
+        <div class="proj-item-overlay">
+          <div class="proj-item-title">Mixed-Use Urban Tower</div>
+          <div class="proj-item-cat">Commercial Architecture</div>
+        </div>
+        <div class="proj-item-btn">
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+
+      <div class="proj-item reveal" onclick="openLightbox(6)" style="transition-delay:.3s">
+        <img src="projects/img07.jpg" alt="Desert Cultural Complex" loading="lazy" />
+        <div class="proj-item-overlay">
+          <div class="proj-item-title">Desert Cultural Complex</div>
+          <div class="proj-item-cat">Landscapes &amp; Urban Design</div>
+        </div>
+        <div class="proj-item-btn">
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+
+
+
+ <div class="proj-item reveal" onclick="openLightbox(6)" style="transition-delay:.3s">
+        <img src="projects/img13.jpg" alt="Desert Cultural Complex" loading="lazy" />
+        <div class="proj-item-overlay">
+          <div class="proj-item-title">Desert Cultural Complex</div>
+          <div class="proj-item-cat">Landscapes &amp; Urban Design</div>
+        </div>
+        <div class="proj-item-btn">
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+
+
+
+ <div class="proj-item reveal" onclick="openLightbox(6)" style="transition-delay:.3s">
+        <img src="projects/img11.jpg" alt="Desert Cultural Complex" loading="lazy" />
+        <div class="proj-item-overlay">
+          <div class="proj-item-title">Desert Cultural Complex</div>
+          <div class="proj-item-cat">Landscapes &amp; Urban Design</div>
+        </div>
+        <div class="proj-item-btn">
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+
+ <div class="proj-item reveal" onclick="openLightbox(6)" style="transition-delay:.3s">
+        <img src="projects/img06.jpg" alt="Desert Cultural Complex" loading="lazy" />
+        <div class="proj-item-overlay">
+          <div class="proj-item-title">Desert Cultural Complex</div>
+          <div class="proj-item-cat">Landscapes &amp; Urban Design</div>
+        </div>
+        <div class="proj-item-btn">
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+
+      <div class="proj-item reveal" onclick="openLightbox(6)" style="transition-delay:.3s">
+        <img src="projects/img08.jpg" alt="Desert Cultural Complex" loading="lazy" />
+        <div class="proj-item-overlay">
+          <div class="proj-item-title">Desert Cultural Complex</div>
+          <div class="proj-item-cat">Landscapes &amp; Urban Design</div>
+        </div>
+        <div class="proj-item-btn">
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+
+
+      <div class="proj-item reveal" onclick="openLightbox(6)" style="transition-delay:.3s">
+        <img src="projects/img09.jpg" alt="Desert Cultural Complex" loading="lazy" />
+        <div class="proj-item-overlay">
+          <div class="proj-item-title">Desert Cultural Complex</div>
+          <div class="proj-item-cat">Landscapes &amp; Urban Design</div>
+        </div>
+        <div class="proj-item-btn">
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+
+      <div class="proj-item reveal" onclick="openLightbox(6)" style="transition-delay:.3s">
+        <img src="projects/img01.jpg" alt="Desert Cultural Complex" loading="lazy" />
+        <div class="proj-item-overlay">
+          <div class="proj-item-title">Desert Cultural Complex</div>
+          <div class="proj-item-cat">Landscapes &amp; Urban Design</div>
+        </div>
+        <div class="proj-item-btn">
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA Strip ── -->
+<section class="projects-cta">
+  <div class="container">
+    <div class="label" style="margin-bottom:16px;">Start a Project</div>
+    <h2>Have a Vision in <span class="gold">Mind?</span></h2>
+    <p>Let's collaborate and transform your architectural ideas into stunning photorealistic visuals.</p>
+    <a href="index.html#contact" class="btn btn-gold">Get In Touch</a>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">
+          <img src="logo.png" alt="ARTIHC Home Design"
+               onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
+          <div class="footer-logo-fallback" style="display:none;">ARTIHC HOME DESIGN</div>
+        </div>
+        <p class="footer-tagline">
+          Bringing architectural imaginations to life through precise design,
+          photorealistic visualization, and creative excellence.
+        </p>
+        <div class="footer-socials">
+          <a href="#" class="social-btn" title="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+          <a href="#" class="social-btn" title="Instagram">
+            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="#" class="social-btn" title="Twitter">
+            <svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
+          </a>
+          <a href="#" class="social-btn" title="YouTube">
+            <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.4a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" style="fill:var(--dark-2)"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Navigation</div>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="projects.html">All Projects</a></li>
+          <li><a href="index.html#services">Services</a></li>
+          <li><a href="index.html#about">About Us</a></li>
+          <li><a href="index.html#pricing">Packages</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <ul class="footer-links">
+          <li><a href="#">Architecture Design</a></li>
+          <li><a href="#">Interior Design</a></li>
+          <li><a href="#">Landscape Design</a></li>
+          <li><a href="#">3D Visualization</a></li>
+          <li><a href="#">Animation</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <ul class="footer-links">
+          <li><a href="tel:+94779079349">+94 77 9079 349</a></li>
+          <li><a href="tel:+18735299492">+1 873 529 9492</a></li>
+          <li><a href="mailto:info.artihc@gmail.com">info.artihc@gmail.com</a></li>
+          <li><a href="mailto:info@artihc.online">info@artihc.online</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 <a href="index.html">ARTIHC HOME DESIGN</a>. All rights reserved.</p>
+      <p class="footer-copy">Architecture &amp; Visualization Studio</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ── Project Lightbox ── -->
+<div id="proj-lightbox" class="proj-lightbox" role="dialog" aria-modal="true">
+  <div class="plb-backdrop" onclick="closeLightbox()"></div>
+  <button class="plb-close" onclick="closeLightbox()" aria-label="Close">
+    <svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>
+  </button>
+  <button class="plb-nav plb-prev" onclick="lightboxPrev()" aria-label="Previous project">
+    <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <button class="plb-nav plb-next" onclick="lightboxNext()" aria-label="Next project">
+    <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+  </button>
+  <div class="plb-img-wrap">
+    <img id="plb-img" src="" alt="" />
+  </div>
+  <div class="plb-bottom">
+    <div>
+      <div id="plb-title" class="plb-title"></div>
+      <div id="plb-cat" class="plb-cat"></div>
+    </div>
+    <div class="plb-counter">
+      <span id="plb-current">1</span><span class="plb-sep"> / </span><span id="plb-total">7</span>
+    </div>
+    <div class="plb-thumbs" id="plb-thumbs"></div>
+  </div>
+</div>
+
+<script>
+  // ── Navbar scroll
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  // ── Mobile menu
+  function toggleMenu() {
+    document.getElementById('mobile-nav').classList.toggle('open');
+  }
+
+  // ── Scroll reveal
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+  // ── Lightbox
+  const ALL_PROJECTS = [
+    { img: 'projects/img01.jpg', title: 'Coastal Cliffside Villa',       cat: 'Architectural Visualization' },
+    { img: 'projects/img02.jpg', title: 'Urban Vertical Forest Complex', cat: 'Architectural Visualization' },
+    { img: 'projects/img03.jpg', title: 'Cultural Centre at Dusk',       cat: 'Exterior Design'             },
+    { img: 'projects/img04.jpg', title: 'Parametric Pavilion',           cat: 'Architecture Design'         },
+    { img: 'projects/img05.jpg', title: 'Sunken Garden Residence',       cat: 'Exterior & Interior Design'  },
+    { img: 'projects/img06.jpg', title: 'Mixed-Use Urban Tower',         cat: 'Commercial Architecture'     },
+    { img: 'projects/img07.jpg', title: 'Desert Cultural Complex',       cat: 'Landscapes & Urban Design'   },
+  ];
+  let lbIndex = 0;
+
+  function openLightbox(idx) {
+    lbIndex = idx;
+    buildLbThumbs();
+    updateLightbox(false);
+    document.getElementById('proj-lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('proj-lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function lightboxPrev() {
+    lbIndex = (lbIndex - 1 + ALL_PROJECTS.length) % ALL_PROJECTS.length;
+    updateLightbox(true);
+  }
+  function lightboxNext() {
+    lbIndex = (lbIndex + 1) % ALL_PROJECTS.length;
+    updateLightbox(true);
+  }
+  function updateLightbox(animate) {
+    const p = ALL_PROJECTS[lbIndex];
+    const img = document.getElementById('plb-img');
+    if (animate) {
+      img.classList.add('switching');
+      setTimeout(() => { img.src = p.img; img.alt = p.title; img.classList.remove('switching'); }, 200);
+    } else {
+      img.src = p.img; img.alt = p.title;
+    }
+    document.getElementById('plb-title').textContent = p.title;
+    document.getElementById('plb-cat').textContent   = p.cat;
+    document.getElementById('plb-current').textContent = lbIndex + 1;
+    document.getElementById('plb-total').textContent   = ALL_PROJECTS.length;
+    document.querySelectorAll('.plb-thumb').forEach((t, i) => t.classList.toggle('active', i === lbIndex));
+  }
+  function buildLbThumbs() {
+    const container = document.getElementById('plb-thumbs');
+    if (!container.children.length) {
+      ALL_PROJECTS.forEach((p, i) => {
+        const t = document.createElement('div');
+        t.className = 'plb-thumb';
+        t.style.backgroundImage = `url('${p.img}')`;
+        t.addEventListener('click', () => { lbIndex = i; updateLightbox(true); });
+        container.appendChild(t);
+      });
+    }
+    document.querySelectorAll('.plb-thumb').forEach((t, i) => t.classList.toggle('active', i === lbIndex));
+  }
+  document.addEventListener('keydown', e => {
+    const lb = document.getElementById('proj-lightbox');
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape')     closeLightbox();
+    if (e.key === 'ArrowLeft')  lightboxPrev();
+    if (e.key === 'ArrowRight') lightboxNext();
+  });
+</script>
+
+</body>
+</html>

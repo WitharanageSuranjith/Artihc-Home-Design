@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ARTIHC HOME DESIGN</title>
@@ -81,324 +82,6 @@
     .divider {
       width: 50px; height: 2px; background: var(--gold);
       margin: 24px 0;
-    }
-    /* ── Flipbook Section (entry point) ────────────────────────── */
-    #flipbook { background: var(--dark-2); }
-    .fb-entry {
-      text-align: center;
-    }
-    .fb-entry .heading-xl { margin-bottom: 16px; }
-    .fb-entry p { font-size:15px; color:var(--muted); max-width:520px; margin:0 auto 48px; line-height:1.8; }
-    .fb-open-btn {
-      display: inline-flex; align-items: center; gap: 14px;
-      padding: 18px 44px; background: transparent;
-      border: 1px solid var(--gold); color: var(--gold);
-      font-family: 'Poppins', sans-serif; font-size: 12px;
-      font-weight: 500; letter-spacing: 3px; text-transform: uppercase;
-      cursor: pointer; transition: var(--transition); border-radius: var(--radius);
-    }
-    .fb-open-btn:hover { background: var(--gold); color: #000; transform: translateY(-2px); box-shadow: 0 12px 40px rgba(201,168,76,.3); }
-    .fb-open-btn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.5; }
-
-    /* Preview strip on section */
-    .fb-preview-strip {
-      display: flex; gap: 12px; justify-content: center;
-      margin-top: 64px; flex-wrap: wrap;
-    }
-    .fb-preview-item {
-      width: 120px; height: 80px; border-radius: 3px;
-      background-size: cover; background-position: center;
-      background-color: var(--dark-4);
-      cursor: pointer; position: relative; overflow: hidden;
-      border: 1px solid var(--border); transition: var(--transition);
-    }
-    .fb-preview-item::after {
-      content: ''; position: absolute; inset: 0;
-      background: rgba(0,0,0,.4);
-      transition: opacity .3s;
-    }
-    .fb-preview-item:hover::after { opacity: 0; }
-    .fb-preview-item:hover { border-color: var(--gold); transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,.5); }
-    .fb-preview-num {
-      position: absolute; bottom: 6px; right: 8px; z-index: 2;
-      font-size: 9px; letter-spacing: 2px; color: rgba(255,255,255,.5);
-    }
-
-    /* ── Fullscreen Flipbook Overlay ────────────────────────────── */
-    #fb-overlay {
-      position: fixed; inset: 0; z-index: 9999;
-      background: #050505;
-      display: flex; flex-direction: column;
-      opacity: 0; pointer-events: none;
-      transition: opacity .4s ease;
-    }
-    #fb-overlay.open {
-      opacity: 1; pointer-events: all;
-    }
-
-    /* Top bar */
-    .fb-topbar {
-      position: absolute; top: 0; left: 0; right: 0; z-index: 10;
-      height: 64px;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 32px;
-      background: linear-gradient(to bottom, rgba(0,0,0,.8) 0%, transparent 100%);
-    }
-    .fb-topbar-logo {
-      font-size: 13px; font-weight: 500; letter-spacing: 4px;
-      text-transform: uppercase; color: var(--gold);
-    }
-    .fb-topbar-title {
-      font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
-      color: rgba(255,255,255,.5);
-    }
-    .fb-close-btn {
-      width: 40px; height: 40px; border-radius: 50%;
-      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12);
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; transition: var(--transition); color: rgba(255,255,255,.7);
-    }
-    .fb-close-btn:hover { background: rgba(255,255,255,.15); color: #fff; }
-    .fb-close-btn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; }
-
-    /* Main viewport — book lives here */
-    .fb-viewport {
-      flex: 1;
-      display: flex; align-items: center; justify-content: center;
-      position: relative;
-      perspective: 3000px;
-      overflow: hidden;
-    }
-
-    /* Left/right click zones */
-    .fb-zone {
-      position: absolute; top: 0; bottom: 0; width: 15%;
-      z-index: 5; cursor: pointer; display: flex; align-items: center;
-      opacity: 0; transition: opacity .3s;
-    }
-    .fb-zone-left  { left: 0; justify-content: flex-start; padding-left: 24px; }
-    .fb-zone-right { right: 0; justify-content: flex-end; padding-right: 24px; }
-    .fb-viewport:hover .fb-zone { opacity: 1; }
-    .fb-zone-btn {
-      width: 52px; height: 52px; border-radius: 50%;
-      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15);
-      display: flex; align-items: center; justify-content: center;
-      color: #fff; transition: var(--transition);
-    }
-    .fb-zone:hover .fb-zone-btn { background: var(--gold); border-color: var(--gold); color: #000; }
-    .fb-zone-btn svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; }
-    .fb-zone-btn:disabled, .fb-zone.disabled { pointer-events: none; opacity: 0 !important; }
-
-    /* The open book */
-    .fb-book {
-      position: relative;
-      width: min(1100px, 90vw);
-      height: min(660px, 58vw);
-      transform-style: preserve-3d;
-      filter: drop-shadow(0 40px 100px rgba(0,0,0,.9));
-      user-select: none;
-    }
-
-    /* Left page (static) */
-    .fb-page-left {
-      position: absolute; top: 0; left: 0;
-      width: 50%; height: 100%;
-      background: #111;
-      border-radius: 6px 0 0 6px;
-      overflow: hidden;
-    }
-    /* Right page (static) */
-    .fb-page-right {
-      position: absolute; top: 0; right: 0;
-      width: 50%; height: 100%;
-      background: #111;
-      border-radius: 0 6px 6px 0;
-      overflow: hidden;
-    }
-
-    /* Page inner shadow at spine */
-    .fb-page-left::after {
-      content: ''; position: absolute; top: 0; right: 0; bottom: 0; width: 60px;
-      background: linear-gradient(to right, transparent, rgba(0,0,0,.55));
-      z-index: 3; pointer-events: none;
-    }
-    .fb-page-right::before {
-      content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 60px;
-      background: linear-gradient(to left, transparent, rgba(0,0,0,.55));
-      z-index: 3; pointer-events: none;
-    }
-
-    /* Page content layers */
-    .fb-pg-img {
-      position: absolute; inset: 0;
-      background-size: cover; background-position: center;
-      background-color: #0e0e0e;
-    }
-    .fb-pg-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,.75) 0%, transparent 50%);
-      z-index: 2;
-    }
-    .fb-pg-info {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      padding: 40px 36px 28px; z-index: 4;
-    }
-    .fb-pg-cat {
-      font-size: 9px; letter-spacing: 5px; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 8px;
-    }
-    .fb-pg-title {
-      font-size: clamp(14px, 1.4vw, 20px); font-weight: 500;
-      color: #fff; line-height: 1.3;
-    }
-    .fb-pg-num-tag {
-      position: absolute; top: 24px; right: 28px; z-index: 4;
-      font-size: 10px; letter-spacing: 2px; color: rgba(201,168,76,.5);
-    }
-    .fb-pg-num-tag-left {
-      position: absolute; top: 24px; left: 28px; z-index: 4;
-      font-size: 10px; letter-spacing: 2px; color: rgba(201,168,76,.5);
-    }
-
-    /* Cover page special style */
-    .fb-pg-cover-inner {
-      position: absolute; inset: 0; z-index: 4;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      text-align: center; padding: 40px;
-    }
-    .fb-pg-cover-inner .label { margin-bottom: 16px; font-size: 10px; }
-    .fb-pg-cover-title {
-      font-size: clamp(20px, 2.5vw, 36px); font-weight: 500;
-      color: #fff; letter-spacing: 3px; line-height: 1.2;
-      margin-bottom: 20px;
-    }
-    .fb-pg-cover-line {
-      width: 50px; height: 1px; background: var(--gold); margin: 0 auto 16px;
-    }
-    .fb-pg-cover-sub {
-      font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
-      color: rgba(255,255,255,.4);
-    }
-
-    /* Spine */
-    .fb-book-spine {
-      position: absolute; top: 0; bottom: 0;
-      left: calc(50% - 6px); width: 12px; z-index: 20;
-      background: linear-gradient(to right,
-        rgba(0,0,0,.7) 0%,
-        rgba(201,168,76,.6) 40%,
-        rgba(228,196,126,.9) 50%,
-        rgba(201,168,76,.6) 60%,
-        rgba(0,0,0,.7) 100%
-      );
-      box-shadow: 0 0 30px rgba(201,168,76,.2);
-    }
-
-    /* Page thickness stacks */
-    .fb-stack-left {
-      position: absolute; top: 4px; bottom: 4px; left: -4px; width: 50%;
-      border-radius: 6px 0 0 6px; z-index: -1;
-      box-shadow: -2px 0 0 #1a1a1a, -4px 0 0 #161616, -6px 0 0 #121212, -8px 0 0 #0e0e0e;
-    }
-    .fb-stack-right {
-      position: absolute; top: 4px; bottom: 4px; right: -4px; width: 50%;
-      border-radius: 0 6px 6px 0; z-index: -1;
-      box-shadow: 2px 0 0 #1a1a1a, 4px 0 0 #161616, 6px 0 0 #121212, 8px 0 0 #0e0e0e;
-    }
-
-    /* ── The flipping half-page ─────────────────────────────────── */
-    .fb-flip {
-      position: absolute;
-      top: 0; left: 50%;
-      width: 50%; height: 100%;
-      transform-origin: left center;
-      transform-style: preserve-3d;
-      z-index: 15;
-      display: none;
-    }
-    .fb-flip.active { display: block; }
-    .fb-flip.to-left  { animation: flipToLeft  .85s cubic-bezier(.645,.045,.355,1) forwards; }
-    .fb-flip.to-right { animation: flipToRight .85s cubic-bezier(.645,.045,.355,1) forwards; }
-
-    @keyframes flipToLeft {
-      0%   { transform: rotateY(0deg); }
-      100% { transform: rotateY(-180deg); }
-    }
-    @keyframes flipToRight {
-      0%   { transform: rotateY(-180deg); }
-      100% { transform: rotateY(0deg); }
-    }
-
-    .fb-flip-f, .fb-flip-b {
-      position: absolute; inset: 0;
-      backface-visibility: hidden; overflow: hidden;
-    }
-    .fb-flip-f { border-radius: 0 6px 6px 0; }
-    .fb-flip-b {
-      transform: rotateY(180deg);
-      border-radius: 0 6px 6px 0;
-    }
-    /* curling shadow on flip-front right edge */
-    .fb-flip-f::after {
-      content: ''; position: absolute; top: 0; right: 0; bottom: 0; width: 40px;
-      background: linear-gradient(to right, transparent, rgba(0,0,0,.6));
-      z-index: 5; pointer-events: none;
-    }
-
-    /* ── Bottom bar ─────────────────────────────────────────────── */
-    .fb-bottombar {
-      position: absolute; bottom: 0; left: 0; right: 0; z-index: 10;
-      padding: 0 40px 28px;
-      background: linear-gradient(to top, rgba(0,0,0,.85) 0%, transparent 100%);
-      display: flex; align-items: flex-end; justify-content: space-between; gap: 20px;
-    }
-
-    /* Thumbnail dock */
-    .fb-thumbs {
-      display: flex; gap: 8px; align-items: flex-end;
-      flex: 1; overflow-x: auto; padding-bottom: 4px;
-      scrollbar-width: none;
-    }
-    .fb-thumbs::-webkit-scrollbar { display: none; }
-    .fb-thumb {
-      width: 54px; height: 38px; border-radius: 2px; flex-shrink: 0;
-      background-size: cover; background-position: center;
-      background-color: #1a1a1a;
-      border: 1.5px solid rgba(255,255,255,.1);
-      cursor: pointer; transition: var(--transition);
-      position: relative; overflow: hidden;
-    }
-    .fb-thumb:hover { border-color: rgba(201,168,76,.6); transform: translateY(-3px) scale(1.05); }
-    .fb-thumb.active { border-color: var(--gold); }
-    .fb-thumb-overlay {
-      position: absolute; inset: 0;
-      background: rgba(0,0,0,.3); transition: opacity .2s;
-    }
-    .fb-thumb.active .fb-thumb-overlay,
-    .fb-thumb:hover .fb-thumb-overlay { opacity: 0; }
-
-    /* Page counter */
-    .fb-counter {
-      flex-shrink: 0; text-align: center; padding-bottom: 2px;
-    }
-    .fb-counter-num {
-      font-size: 28px; font-weight: 300; color: #fff; line-height: 1;
-      letter-spacing: -1px;
-    }
-    .fb-counter-total {
-      font-size: 10px; letter-spacing: 3px; color: rgba(255,255,255,.35);
-      text-transform: uppercase; margin-top: 3px;
-    }
-
-    /* Progress bar */
-    .fb-progress {
-      flex: 1; height: 2px; background: rgba(255,255,255,.1);
-      border-radius: 1px; overflow: hidden; margin-bottom: 19px;
-    }
-    .fb-progress-fill {
-      height: 100%; background: var(--gold);
-      transition: width .4s ease; border-radius: 1px;
     }
 
     /* scroll reveal */
@@ -911,6 +594,16 @@
       .footer-top { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 768px) {
+      /* Viewer on mobile */
+      .fb-topbar { top: 10px; left: 10px; right: 10px; height: 48px; padding: 0 14px; border-radius: 10px; }
+      .fb-topbar-sep, #fb-overlay-title { display: none; }
+      .fb-bottombar { bottom: 10px; left: 10px; right: 10px; border-radius: 10px; grid-template-columns: 1fr auto; padding: 12px 14px; }
+      .fb-progress-wrap { display: none; }
+      .fb-thumbs { gap: 4px; }
+      .fb-thumb { width: 40px; height: 28px; }
+      .fb-zone { width: 22%; }
+      .fb-zone-btn { width: 44px; height: 44px; }
+      .fb-book { width: 96vw; height: 56vw; min-height: 200px; }
       .nav-links { display: none; }
       .hamburger { display: flex; }
       .projects-grid { grid-template-columns: 1fr 1fr; }
@@ -929,6 +622,280 @@
     @media (max-width: 480px) {
       .hero-content h1 { font-size: 40px; }
       .projects-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── Portfolio Books Section ───────────────────────────── */
+    #portfolio-books {
+      background: var(--dark-2);
+      padding: 120px 0;
+      overflow: hidden;
+    }
+    .books-header {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+    .books-header .divider { margin: 24px auto; }
+    .books-header p {
+      font-size: 15px; color: var(--muted);
+      max-width: 480px; margin: 0 auto; line-height: 1.8;
+    }
+
+    /* Slider track */
+    .books-slider-wrap {
+      position: relative;
+      overflow: hidden;
+      /* wide enough for 3 books (190px) + 2 gaps (48px) + spine offsets */
+      max-width: 780px;
+      margin: 0 auto;
+    }
+    .books-track {
+      display: flex;
+      gap: 48px;
+      align-items: flex-end;
+      padding: 60px 28px 80px;
+      perspective: 1800px;
+      /* JS drives transform */
+      transition: transform .85s cubic-bezier(.25,.46,.45,.94);
+      will-change: transform;
+    }
+
+    /* Each 3D book */
+    .book-3d {
+      flex: 0 0 190px;
+      position: relative;
+      cursor: pointer;
+      transition: transform .5s cubic-bezier(.25,.46,.45,.94);
+    }
+    .book-3d:hover { transform: translateY(-18px); }
+
+    /* The book inner (perspective wrapper) — portrait */
+    .book-inner {
+      width: 190px;
+      height: 310px;
+      position: relative;
+      transform-style: preserve-3d;
+      transform: rotateY(-28deg);
+      transition: transform .5s cubic-bezier(.25,.46,.45,.94);
+      filter: drop-shadow(0 40px 60px rgba(0,0,0,.7));
+    }
+    .book-3d:hover .book-inner {
+      transform: rotateY(-8deg);
+    }
+
+    /* Book cover face */
+    .book-cover {
+      position: absolute; inset: 0;
+      border-radius: 0 4px 4px 0;
+      overflow: hidden;
+      background: var(--dark-4);
+      transform-origin: left center;
+    }
+    .book-cover-img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .6s ease;
+    }
+    .book-3d:hover .book-cover-img { transform: scale(1.06); }
+    .book-cover-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.85) 0%, rgba(0,0,0,.1) 50%, transparent 100%);
+      transition: opacity .4s ease;
+    }
+    .book-cover-text {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 24px 18px 20px;
+      z-index: 2;
+    }
+    .book-cover-vol {
+      font-size: 9px; letter-spacing: 4px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 8px;
+    }
+    .book-cover-title {
+      font-size: 14px; font-weight: 500; color: #fff;
+      line-height: 1.3;
+    }
+    .book-cover-line {
+      width: 28px; height: 1.5px; background: var(--gold);
+      margin: 10px 0 0;
+    }
+
+    /* Open button that appears on hover */
+    .book-open-btn {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%) scale(.8);
+      z-index: 5;
+      opacity: 0;
+      transition: opacity .35s ease, transform .35s ease;
+      padding: 10px 20px;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+      background: rgba(0,0,0,.6);
+      backdrop-filter: blur(4px);
+      border-radius: var(--radius);
+      white-space: nowrap;
+    }
+    .book-3d:hover .book-open-btn {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    /* Book spine (left face) */
+    .book-spine {
+      position: absolute;
+      top: 2px; bottom: 2px; left: -18px;
+      width: 18px;
+      transform: rotateY(-90deg);
+      transform-origin: right center;
+      border-radius: 2px 0 0 2px;
+      background: linear-gradient(to right,
+        #1a1200 0%,
+        #3d2c00 20%,
+        #c9a84c 45%,
+        #e4c47e 50%,
+        #c9a84c 55%,
+        #3d2c00 80%,
+        #1a1200 100%
+      );
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .book-spine-text {
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      transform: rotate(180deg);
+      font-size: 8px; letter-spacing: 3px; text-transform: uppercase;
+      color: rgba(0,0,0,.6);
+      white-space: nowrap;
+    }
+
+    /* Right-edge page stack (thickness) */
+    .book-pages {
+      position: absolute;
+      top: 2px; bottom: 2px; right: -14px;
+      width: 14px;
+      transform: rotateY(90deg);
+      transform-origin: left center;
+      border-radius: 0 2px 2px 0;
+      background: repeating-linear-gradient(
+        to bottom,
+        #2a2a2a 0px,
+        #2a2a2a 1.5px,
+        #1e1e1e 1.5px,
+        #1e1e1e 3px
+      );
+      box-shadow: inset -4px 0 8px rgba(0,0,0,.5);
+    }
+
+    /* Bottom label below book */
+    .book-label {
+      text-align: center;
+      margin-top: 28px;
+    }
+    .book-label-title {
+      font-size: 13px; font-weight: 500; color: var(--text);
+      margin-bottom: 5px; transition: color .3s;
+    }
+    .book-3d:hover .book-label-title { color: var(--gold); }
+    .book-label-sub {
+      font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* Dot indicators */
+    .books-dots {
+      display: flex; justify-content: center; gap: 8px;
+      margin-top: 0;
+    }
+    .books-dot {
+      width: 24px; height: 2px; border-radius: 1px;
+      background: rgba(255,255,255,.2);
+      cursor: pointer; transition: all .35s ease;
+    }
+    .books-dot.active { background: var(--gold); width: 40px; }
+
+    @media (max-width: 600px) {
+      .books-slider-wrap { max-width: 100%; }
+      .book-3d { flex: 0 0 140px; }
+      .book-inner { width: 140px; height: 220px; }
+      .book-spine  { width: 12px; left: -12px; }
+      .book-pages  { width: 10px; right: -10px; }
+      .books-track { gap: 28px; padding: 40px 16px 60px; }
+    }
+
+    /* ── Project Lightbox ──────────────────────────────────── */
+    .proj-lightbox {
+      position: fixed; inset: 0; z-index: 9000;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity .35s ease;
+    }
+    .proj-lightbox.open { opacity: 1; pointer-events: all; }
+    .plb-backdrop {
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,.96);
+      backdrop-filter: blur(8px);
+    }
+    .plb-close {
+      position: absolute; top: 24px; right: 24px; z-index: 10;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: rgba(255,255,255,.8); transition: var(--transition);
+    }
+    .plb-close:hover { background: rgba(255,255,255,.18); color: #fff; }
+    .plb-close svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+    .plb-nav {
+      position: absolute; top: 50%; transform: translateY(-50%); z-index: 10;
+      width: 56px; height: 56px; border-radius: 50%;
+      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.15);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: rgba(255,255,255,.8); transition: var(--transition);
+    }
+    .plb-nav:hover { background: var(--gold); border-color: var(--gold); color: #000; }
+    .plb-nav svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .plb-prev { left: 24px; }
+    .plb-next { right: 24px; }
+    .plb-img-wrap {
+      position: relative; z-index: 5;
+      width: min(1100px, 88vw);
+      display: flex; align-items: center; justify-content: center;
+      padding-top: 60px;
+    }
+    #plb-img {
+      max-width: 100%; max-height: 70vh;
+      object-fit: contain; border-radius: var(--radius);
+      box-shadow: 0 32px 100px rgba(0,0,0,.8);
+      transition: opacity .22s ease;
+      display: block;
+    }
+    #plb-img.switching { opacity: 0; }
+    .plb-bottom {
+      position: absolute; bottom: 0; left: 0; right: 0; z-index: 10;
+      padding: 32px 100px 28px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 24px; flex-wrap: wrap;
+      background: linear-gradient(to top, rgba(0,0,0,.9) 0%, transparent 100%);
+    }
+    .plb-title { font-size: 19px; font-weight: 500; color: var(--text); margin-bottom: 5px; }
+    .plb-cat   { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); }
+    .plb-counter { font-size: 13px; color: rgba(255,255,255,.45); display: flex; align-items: center; gap: 5px; flex-shrink: 0; }
+    .plb-sep { color: rgba(255,255,255,.2); }
+    .plb-thumbs { display: flex; gap: 8px; align-items: center; }
+    .plb-thumb {
+      width: 54px; height: 38px; border-radius: 3px;
+      background-size: cover; background-position: center;
+      border: 2px solid transparent; cursor: pointer; opacity: .4;
+      transition: opacity .3s, border-color .3s, transform .25s;
+    }
+    .plb-thumb:hover { opacity: .8; transform: translateY(-2px); }
+    .plb-thumb.active { border-color: var(--gold); opacity: 1; }
+    @media (max-width: 768px) {
+      .plb-prev { left: 10px; } .plb-next { right: 10px; }
+      .plb-bottom { padding: 20px 24px; }
+      .plb-thumbs { display: none; }
+      .plb-nav { width: 44px; height: 44px; }
     }
   </style>
 
@@ -1018,85 +985,85 @@
     </div>
     <div class="projects-grid">
       <!-- Card 1 -->
-      <div class="proj-card reveal">
+      <div class="proj-card reveal" onclick="openLightbox(0)">
         <div class="proj-img" style="background-image:url('projects/img01.jpg')"></div>
         <div class="proj-overlay">
           <div class="proj-overlay-title">Coastal Cliffside Villa</div>
           <div class="proj-overlay-cat">Architectural Visualization</div>
         </div>
-        <a href="#" class="proj-link">
+        <span class="proj-link">
           <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
+        </span>
       </div>
       <!-- Card 2 -->
-      <div class="proj-card reveal" style="transition-delay:.1s">
+      <div class="proj-card reveal" style="transition-delay:.1s" onclick="openLightbox(1)">
         <div class="proj-img" style="background-image:url('projects/img02.jpg')"></div>
         <div class="proj-overlay">
           <div class="proj-overlay-title">Urban Vertical Forest Complex</div>
           <div class="proj-overlay-cat">Architectural Visualization</div>
         </div>
-        <a href="#" class="proj-link">
+        <span class="proj-link">
           <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
+        </span>
       </div>
       <!-- Card 3 -->
-      <div class="proj-card reveal" style="transition-delay:.15s">
+      <div class="proj-card reveal" style="transition-delay:.15s" onclick="openLightbox(2)">
         <div class="proj-img" style="background-image:url('projects/img03.jpg')"></div>
         <div class="proj-overlay">
           <div class="proj-overlay-title">Cultural Centre at Dusk</div>
           <div class="proj-overlay-cat">Exterior Design</div>
         </div>
-        <a href="#" class="proj-link">
+        <span class="proj-link">
           <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
+        </span>
       </div>
       <!-- Card 4 -->
-      <div class="proj-card reveal" style="transition-delay:.2s">
+      <div class="proj-card reveal" style="transition-delay:.2s" onclick="openLightbox(3)">
         <div class="proj-img" style="background-image:url('projects/img04.jpg')"></div>
         <div class="proj-overlay">
           <div class="proj-overlay-title">Parametric Pavilion</div>
           <div class="proj-overlay-cat">Architecture Design</div>
         </div>
-        <a href="#" class="proj-link">
+        <span class="proj-link">
           <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
+        </span>
       </div>
       <!-- Card 5 -->
-      <div class="proj-card reveal" style="transition-delay:.25s">
+      <div class="proj-card reveal" style="transition-delay:.25s" onclick="openLightbox(4)">
         <div class="proj-img" style="background-image:url('projects/img05.jpg')"></div>
         <div class="proj-overlay">
           <div class="proj-overlay-title">Sunken Garden Residence</div>
           <div class="proj-overlay-cat">Exterior &amp; Interior Design</div>
         </div>
-        <a href="#" class="proj-link">
+        <span class="proj-link">
           <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
+        </span>
       </div>
       <!-- Card 6 -->
-      <div class="proj-card reveal" style="transition-delay:.3s">
+      <div class="proj-card reveal" style="transition-delay:.3s" onclick="openLightbox(5)">
         <div class="proj-img" style="background-image:url('projects/img06.jpg')"></div>
         <div class="proj-overlay">
           <div class="proj-overlay-title">Mixed-Use Urban Tower</div>
           <div class="proj-overlay-cat">Commercial Architecture</div>
         </div>
-        <a href="#" class="proj-link">
+        <span class="proj-link">
           <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
+        </span>
       </div>
       <!-- Card 7 -->
-      <div class="proj-card reveal" style="transition-delay:.35s">
+      <div class="proj-card reveal" style="transition-delay:.35s" onclick="openLightbox(6)">
         <div class="proj-img" style="background-image:url('projects/img07.jpg')"></div>
         <div class="proj-overlay">
           <div class="proj-overlay-title">Desert Cultural Complex</div>
           <div class="proj-overlay-cat">Landscapes &amp; Urban Design</div>
         </div>
-        <a href="#" class="proj-link">
+        <span class="proj-link">
           <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
+        </span>
       </div>
     </div>
     <div class="view-all-wrap reveal">
-      <a href="#" class="btn btn-outline">View All Projects</a>
+      <a href="projects.html" class="btn btn-outline">View All Projects</a>
     </div>
   </div>
 </section>
@@ -1541,6 +1508,8 @@
   </div>
 </footer>
 
+
+
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // ── Hero slideshow ─────────────────────────────────────────
   const slides = document.querySelectorAll('.hero-slide');
@@ -1612,236 +1581,104 @@
     }, 3000);
   }
 
-  // ── Fullscreen Flipbook Viewer ─────────────────────────────
-  const FB_PAGES = [
-    { img: 'projects/1.png',                    title: 'ARTIHC Home Design',            cover: true  },
-    { img: 'projects/2.png',  title: 'Desert Villa Residence',                           },
-    { img: 'projects/3.jpg',  title: 'Urban Vertical Forest Complex',              },
-    { img: 'projects/4.jpg',  title: 'Cultural Centre at Dusk',                               },
-    { img: 'projects/5.jpg',  title: 'Parametric Pavilion',                             },
-    { img: 'projects/6.jpg',  title: 'Sunken Garden Residence',                   },
-    { img: 'projects/7.jpg',  title: 'Mixed-Use Urban Tower',                        },
-    { img: 'projects/8.jpg',  title: 'Desert Cultural Complex',                  },
-    { img: '',                    title: 'Thank You',                      cover: true  },
-  ];
-
-  // Spreads: each spread = { left: pageIdx|null, right: pageIdx|null }
-  // spread 0 = cover (right only), spreads 1–3 = pairs, spread 4 = back cover (left only)
-  const FB_SPREADS = [];
-  for (let i = 0; i < FB_PAGES.length; i += 2) {
-    if (i === 0) { FB_SPREADS.push({ left: null, right: 0 }); i--; continue; }
-    if (i === FB_PAGES.length - 1) { FB_SPREADS.push({ left: i, right: null }); }
-    else FB_SPREADS.push({ left: i, right: i + 1 });
-  }
-
-  let fbSpread = 0;
-  let fbAnimating = false;
-
-  // DOM refs
-  const fbOverlay     = document.getElementById('fb-overlay');
-  const fbBook        = document.getElementById('fb-book');
-  const fbPgLeftImg   = document.getElementById('fb-pg-left-img');
-  const fbPgLeftInfo  = document.getElementById('fb-pg-left-info');
-  const fbPgLeftNum   = document.getElementById('fb-pg-left-num');
-  const fbPgRightImg  = document.getElementById('fb-pg-right-img');
-  const fbPgRightInfo = document.getElementById('fb-pg-right-info');
-  const fbPgRightNum  = document.getElementById('fb-pg-right-num');
-  const fbFlip        = document.getElementById('fb-flip');
-  const fbFlipFrontImg  = document.getElementById('fb-flip-front-img');
-  const fbFlipFrontInfo = document.getElementById('fb-flip-front-info');
-  const fbFlipBackImg   = document.getElementById('fb-flip-back-img');
-  const fbFlipBackInfo  = document.getElementById('fb-flip-back-info');
-  const fbThumbsEl    = document.getElementById('fb-thumbs');
-  const fbCounterNum  = document.getElementById('fb-counter-num');
-  const fbCounterTot  = document.getElementById('fb-counter-total');
-  const fbProgress    = document.getElementById('fb-progress-fill');
-  const fbOverTitle   = document.getElementById('fb-overlay-title');
-  const fbZoneLeft    = document.getElementById('fb-zone-left');
-  const fbZoneRight   = document.getElementById('fb-zone-right');
-  const fbPreview     = document.getElementById('fb-preview-strip');
-  const fbStackLeft   = document.getElementById('fb-stack-left');
-  const fbStackRight  = document.getElementById('fb-stack-right');
-
-  function fbPageBg(p) {
-    if (!p) return '';
-    return p.img ? `url('${p.img}')` : 'linear-gradient(135deg,#0e0e0e 0%,#181818 100%)';
-  }
-
-  function fbPageInfoHTML(p, idx) {
-    if (!p) return '';
-    if (p.cover) return `<div class="fb-pg-cover-inner">
-      <div class="label" style="margin-bottom:14px;font-size:9px;">${p.cat}</div>
-      <div class="fb-pg-cover-title">${p.title}</div>
-      <div class="fb-pg-cover-line"></div>
-      <div class="fb-pg-cover-sub">Portfolio 2025</div>
-    </div>`;
-    return `<div class="fb-pg-cat">${p.cat}</div><div class="fb-pg-title">${p.title}</div>`;
-  }
-
-  function fbApply(imgEl, infoEl, p, idx) {
-    imgEl.style.backgroundImage = fbPageBg(p);
-    infoEl.innerHTML = fbPageInfoHTML(p, idx);
-  }
-
-  function fbRenderSpread(s, instant) {
-    const { left, right } = FB_SPREADS[s];
-    const lp = left  !== null ? FB_PAGES[left]  : null;
-    const rp = right !== null ? FB_PAGES[right] : null;
-
-    fbApply(fbPgLeftImg,  fbPgLeftInfo,  lp, left);
-    fbApply(fbPgRightImg, fbPgRightInfo, rp, right);
-    fbPgLeftNum.textContent  = lp && !lp.cover  ? String((left  || 0) + 1).padStart(2,'0') : '';
-    fbPgRightNum.textContent = rp && !rp.cover ? String((right || 0) + 1).padStart(2,'0') : '';
-    fbOverTitle.textContent  = rp && !rp.cover ? rp.title : (lp && !lp.cover ? lp.title : 'Portfolio');
-
-    // Update page stacks to show thickness
-    const turned   = s;
-    const remaining = FB_SPREADS.length - 1 - s;
-    const maxStack = 8;
-    const lSize = Math.min(turned   * 2, maxStack);
-    const rSize = Math.min(remaining * 2, maxStack);
-    fbStackLeft.style.boxShadow  = lSize > 0 ? Array.from({length: lSize}, (_,i) => `-${i+1}px 0 0 #${(14+i).toString(16)}1212`).join(',') : 'none';
-    fbStackRight.style.boxShadow = rSize > 0 ? Array.from({length: rSize}, (_,i) => `${i+1}px 0 0 #${(14+i).toString(16)}1212`).join(',') : 'none';
-  }
-
-  function fbUpdateUI() {
-    const total = FB_PAGES.length;
-    const { left, right } = FB_SPREADS[fbSpread];
-    const visiblePage = right !== null ? right : left;
-    fbCounterNum.textContent = String((visiblePage || 0) + 1).padStart(2,'0');
-    fbCounterTot.textContent = `of ${total}`;
-    fbProgress.style.width = `${((fbSpread) / (FB_SPREADS.length - 1)) * 100}%`;
-
-    // Zone visibility
-    fbZoneLeft.classList.toggle('disabled',  fbSpread === 0);
-    fbZoneRight.classList.toggle('disabled', fbSpread === FB_SPREADS.length - 1);
-
-    // Thumbs
-    document.querySelectorAll('.fb-thumb').forEach((t, i) => {
-      t.classList.toggle('active', i === fbSpread);
-      if (t.classList.contains('active')) t.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
-    });
-  }
-
-  function fbGoTo(s, instant) {
-    if (fbAnimating) return;
-    if (s < 0 || s >= FB_SPREADS.length) return;
-    const dir = s > fbSpread ? 'left' : 'right';
-    const from = fbSpread;
-    fbSpread = s;
-
-    if (instant) {
-      fbRenderSpread(s, true);
-      fbUpdateUI();
-      return;
-    }
-
-    // Animate: set up flip page
-    fbAnimating = true;
-    const { left: fromLeft, right: fromRight } = FB_SPREADS[from];
-    const { left: toLeft,   right: toRight   } = FB_SPREADS[s];
-
-    if (dir === 'left') {
-      // Page on right sweeps to left
-      const fp = fromRight !== null ? FB_PAGES[fromRight] : null;
-      const bp = toLeft    !== null ? FB_PAGES[toLeft]    : null;
-      fbApply(fbFlipFrontImg, fbFlipFrontInfo, fp, fromRight);
-      fbApply(fbFlipBackImg,  fbFlipBackInfo,  bp, toLeft);
-    } else {
-      // Page on left sweeps back to right
-      const fp = toRight   !== null ? FB_PAGES[toRight]  : null;
-      const bp = fromLeft  !== null ? FB_PAGES[fromLeft] : null;
-      fbApply(fbFlipFrontImg, fbFlipFrontInfo, fp, toRight);
-      fbApply(fbFlipBackImg,  fbFlipBackInfo,  bp, fromLeft);
-    }
-
-    // Pre-position the flip el
-    fbFlip.className = 'fb-flip active';
-    if (dir === 'right') fbFlip.style.transform = 'rotateY(-180deg)';
-    else fbFlip.style.transform = '';
-
-    // Force reflow then animate
-    void fbFlip.offsetWidth;
-    fbFlip.classList.add(dir === 'left' ? 'to-left' : 'to-right');
-
-    // Halfway: swap static pages
-    setTimeout(() => {
-      fbRenderSpread(s, true);
-    }, 420);
-
-    setTimeout(() => {
-      fbFlip.className = 'fb-flip';
-      fbFlip.style.transform = '';
-      fbAnimating = false;
-      fbUpdateUI();
-    }, 900);
-
-    fbUpdateUI();
-  }
-
-  // Build thumbnails
-  function fbBuildThumbs() {
-    fbThumbsEl.innerHTML = '';
-    FB_SPREADS.forEach((spread, i) => {
-      const idx = spread.right !== null ? spread.right : spread.left;
-      const p = idx !== null ? FB_PAGES[idx] : null;
-      const t = document.createElement('div');
-      t.className = 'fb-thumb' + (i === 0 ? ' active' : '');
-      if (p && p.img) t.style.backgroundImage = `url('${p.img}')`;
-      else t.style.background = 'linear-gradient(135deg,#141414,#0a0a0a)';
-      t.innerHTML = `<div class="fb-thumb-overlay"></div>`;
-      t.addEventListener('click', () => fbGoTo(i));
-      fbThumbsEl.appendChild(t);
-    });
-  }
-
-  // Build preview strip on section
-  function fbBuildPreview() {
-    if (!fbPreview) return;
-    fbPreview.innerHTML = '';
-    FB_PAGES.filter(p => p.img).forEach((p, i) => {
-      const el = document.createElement('div');
-      el.className = 'fb-preview-item';
-      el.style.backgroundImage = `url('${p.img}')`;
-      el.innerHTML = `<div class="fb-preview-num">${String(i+1).padStart(2,'0')}</div>`;
-      el.addEventListener('click', () => openFlibook(i));
-      fbPreview.appendChild(el);
-    });
-  }
-
-  function openFlibook(pageIdx) {
-    // Find spread containing this page
-    let targetSpread = 0;
-    if (pageIdx) {
-      FB_SPREADS.forEach((s, i) => {
-        if (s.left === pageIdx || s.right === pageIdx) targetSpread = i;
-      });
-    }
-    fbSpread = targetSpread;
-    fbRenderSpread(fbSpread, true);
-    fbBuildThumbs();
-    fbUpdateUI();
-    fbOverlay.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeFlibook() {
-    fbOverlay.classList.remove('open');
-    document.body.style.overflow = '';
-  }
-
-  // Keyboard
-  document.addEventListener('keydown', e => {
-    if (!fbOverlay.classList.contains('open')) return;
-    if (e.key === 'Escape')      closeFlibook();
-    if (e.key === 'ArrowRight')  fbGoTo(fbSpread + 1);
-    if (e.key === 'ArrowLeft')   fbGoTo(fbSpread - 1);
-  });
-
-  // Init preview strip
-  fbBuildPreview();
 </script>
 
+
+<!-- ── Project Lightbox ──────────────────────────────────── -->
+<div id="proj-lightbox" class="proj-lightbox" role="dialog" aria-modal="true">
+  <div class="plb-backdrop" onclick="closeLightbox()"></div>
+  <button class="plb-close" onclick="closeLightbox()" aria-label="Close">
+    <svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>
+  </button>
+  <button class="plb-nav plb-prev" onclick="lightboxPrev()" aria-label="Previous project">
+    <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <button class="plb-nav plb-next" onclick="lightboxNext()" aria-label="Next project">
+    <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+  </button>
+  <div class="plb-img-wrap">
+    <img id="plb-img" src="" alt="" />
+  </div>
+  <div class="plb-bottom">
+    <div class="plb-info">
+      <div id="plb-title" class="plb-title"></div>
+      <div id="plb-cat" class="plb-cat"></div>
+    </div>
+    <div class="plb-counter">
+      <span id="plb-current">1</span><span class="plb-sep"> / </span><span id="plb-total">7</span>
+    </div>
+    <div class="plb-thumbs" id="plb-thumbs"></div>
+  </div>
+</div>
+
+<script>
+  // ── Project Lightbox ──────────────────────────────────────
+  const PROJECTS = [
+    { img: 'projects/img01.jpg', title: 'Coastal Cliffside Villa',       cat: 'Architectural Visualization' },
+    { img: 'projects/img02.jpg', title: 'Urban Vertical Forest Complex', cat: 'Architectural Visualization' },
+    { img: 'projects/img03.jpg', title: 'Cultural Centre at Dusk',       cat: 'Exterior Design'             },
+    { img: 'projects/img04.jpg', title: 'Parametric Pavilion',           cat: 'Architecture Design'         },
+    { img: 'projects/img05.jpg', title: 'Sunken Garden Residence',       cat: 'Exterior & Interior Design'  },
+    { img: 'projects/img06.jpg', title: 'Mixed-Use Urban Tower',         cat: 'Commercial Architecture'     },
+    { img: 'projects/img07.jpg', title: 'Desert Cultural Complex',       cat: 'Landscapes & Urban Design'   },
+  ];
+  let lbIndex = 0;
+
+  function openLightbox(idx) {
+    lbIndex = idx;
+    buildLbThumbs();
+    updateLightbox(false);
+    document.getElementById('proj-lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    document.getElementById('proj-lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function lightboxPrev() {
+    lbIndex = (lbIndex - 1 + PROJECTS.length) % PROJECTS.length;
+    updateLightbox(true);
+  }
+  function lightboxNext() {
+    lbIndex = (lbIndex + 1) % PROJECTS.length;
+    updateLightbox(true);
+  }
+  function updateLightbox(animate) {
+    const p = PROJECTS[lbIndex];
+    const img = document.getElementById('plb-img');
+    if (animate) {
+      img.classList.add('switching');
+      setTimeout(() => { img.src = p.img; img.alt = p.title; img.classList.remove('switching'); }, 200);
+    } else {
+      img.src = p.img; img.alt = p.title;
+    }
+    document.getElementById('plb-title').textContent = p.title;
+    document.getElementById('plb-cat').textContent   = p.cat;
+    document.getElementById('plb-current').textContent = lbIndex + 1;
+    document.getElementById('plb-total').textContent   = PROJECTS.length;
+    document.querySelectorAll('.plb-thumb').forEach((t, i) => t.classList.toggle('active', i === lbIndex));
+  }
+  function buildLbThumbs() {
+    const container = document.getElementById('plb-thumbs');
+    if (!container.children.length) {
+      PROJECTS.forEach((p, i) => {
+        const t = document.createElement('div');
+        t.className = 'plb-thumb';
+        t.style.backgroundImage = `url('${p.img}')`;
+        t.addEventListener('click', () => { lbIndex = i; updateLightbox(true); });
+        container.appendChild(t);
+      });
+    }
+    document.querySelectorAll('.plb-thumb').forEach((t, i) => t.classList.toggle('active', i === lbIndex));
+  }
+  document.addEventListener('keydown', e => {
+    const lb = document.getElementById('proj-lightbox');
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape')     closeLightbox();
+    if (e.key === 'ArrowLeft')  lightboxPrev();
+    if (e.key === 'ArrowRight') lightboxNext();
+  });
+</script>
 
 <!-- Whatsapp Send Message  -->
 
