@@ -27,7 +27,8 @@
       --radius:     4px;
       --transition: .4s cubic-bezier(.25,.46,.45,.94);
     }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+
     body {
       font-family: 'Poppins', sans-serif;
       background: var(--dark);
@@ -591,6 +592,7 @@
     }
     @media (max-width: 768px) {
       /* Viewer on mobile */
+
       .fb-topbar { top: 10px; left: 10px; right: 10px; height: 48px; padding: 0 14px; border-radius: 10px; }
       .fb-topbar-sep, #fb-overlay-title { display: none; }
       .fb-bottombar { bottom: 10px; left: 10px; right: 10px; border-radius: 10px; grid-template-columns: 1fr auto; padding: 12px 14px; }
@@ -616,6 +618,15 @@
       .footer-tagline { max-width: 400px; }
       .about-badge { right: 0; bottom: -20px; width: 120px; height: 120px; }
       .about-badge-num { font-size: 32px; }
+
+
+      /* Prevent horizontal-translate animations from overflowing viewport */
+      .reveal-left  { transform: translateY(40px); }
+      .reveal-right { transform: translateY(40px); }
+      .reveal-left.visible, .reveal-right.visible { transform: translateY(0); }
+
+
+
     }
     @media (max-width: 480px) {
       .hero-content h1 { font-size: 40px; }
